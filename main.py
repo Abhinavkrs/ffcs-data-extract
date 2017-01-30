@@ -5,10 +5,12 @@ from bs4 import BeautifulSoup
 from PIL import Image, ImageTk
 import urllib.parse as up
 import tkinter 
+import getpass
+import time
 
 main_url = 'https://vtop.vit.ac.in/student/stud_login.asp'
-reg_no = input('Enter your registration number - ')
-#password = input('Enter your password - ')
+reg_no = input('Enter your registration number: ')
+password = getpass.getpass('Enter your password:')
 
 #web_data = ur.urlopen(main_url).read()
 #print(web_data)
@@ -46,9 +48,25 @@ tkimage = ImageTk.PhotoImage(im)
 tkinter.Label(root, image=tkimage).pack()
 root.mainloop()
 
-captcha_data = input('Enter the Captcha - ')
+captcha_data = input('Enter the Captcha: ')
 captcha_tb = browser.find_element_by_name("vrfcd")
 captcha_tb.send_keys(captcha_data)
 
 submit_btn = browser.find_element_by_class_name("submit3")
 submit_btn.click()
+
+login_url = browser.current_url
+print(login_url)
+
+time.sleep(6)
+
+#This button refers to the Winter Semester 2016-17. Change according to usage.
+semester_btn = browser.find_element_by_id("tree23ec0_0_17_link")
+semester_btn.click()
+
+timetable_btn = browser.find_element_by_id("tree23ec0_6_0_link")
+timetable_btn.click()
+
+x = input('')
+
+
