@@ -46,7 +46,7 @@ im = Image.open('captcha.png')
 root = tkinter.Tk()
 tkimage = ImageTk.PhotoImage(im)
 tkinter.Label(root, image=tkimage).pack()
-root.mainloop()
+#root.mainloop()
 
 captcha_data = input('Enter the Captcha: ')
 captcha_tb = browser.find_element_by_name("vrfcd")
@@ -55,10 +55,12 @@ captcha_tb.send_keys(captcha_data)
 submit_btn = browser.find_element_by_class_name("submit3")
 submit_btn.click()
 
+time.sleep(10)
 login_url = browser.current_url
-print(login_url)
-
-time.sleep(6)
+browser.get(login_url)
+assert "FFCS" in browser.title
+browser.switch_to.frame(0)
+browser.switch_to.frame(0)
 
 #This button refers to the Winter Semester 2016-17. Change according to usage.
 semester_btn = browser.find_element_by_id("tree23ec0_0_17_link")
@@ -67,6 +69,5 @@ semester_btn.click()
 timetable_btn = browser.find_element_by_id("tree23ec0_6_0_link")
 timetable_btn.click()
 
-x = input('')
 
 
