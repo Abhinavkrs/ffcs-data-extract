@@ -15,7 +15,7 @@ password = getpass.getpass('Enter your password:')
 #web_data = ur.urlopen(main_url).read()
 #print(web_data)
 
-browser = webdriver.Firefox()
+browser = webdriver.PhantomJS()
 browser.get(main_url)
 assert "FFCS" in browser.title
 
@@ -55,19 +55,9 @@ captcha_tb.send_keys(captcha_data)
 submit_btn = browser.find_element_by_class_name("submit3")
 submit_btn.click()
 
-time.sleep(10)
+time.sleep(5)
 login_url = browser.current_url
-browser.get(login_url)
 assert "FFCS" in browser.title
-browser.switch_to.frame(0)
-browser.switch_to.frame(0)
 
-#This button refers to the Winter Semester 2016-17. Change according to usage.
-semester_btn = browser.find_element_by_id("tree23ec0_0_17_link")
-semester_btn.click()
-
-timetable_btn = browser.find_element_by_id("tree23ec0_6_0_link")
-timetable_btn.click()
-
-
-
+browser.get('https://vtop.vit.ac.in/student/course_regular.asp?sem=WS')
+print(browser.page_source)
