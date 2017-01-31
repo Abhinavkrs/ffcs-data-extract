@@ -3,17 +3,12 @@ from selenium.common.exceptions import TimeoutException
 import urllib.request as ur
 from bs4 import BeautifulSoup
 from PIL import Image, ImageTk
-import urllib.parse as up
 import tkinter 
 import getpass
-import time
 
 main_url = 'https://vtop.vit.ac.in/student/stud_login.asp'
 reg_no = input('Enter your registration number: ')
 password = getpass.getpass('Enter your password:')
-
-#web_data = ur.urlopen(main_url).read()
-#print(web_data)
 
 browser = webdriver.PhantomJS()
 browser.get(main_url)
@@ -24,8 +19,6 @@ pass_tb = browser.find_element_by_name("passwd")
 
 reg_tb.send_keys(reg_no)
 pass_tb.send_keys(password)
-
-#soup_data = BeautifulSoup(web_data,"html.parser")
 
 cap_img = browser.find_element_by_id("imgCaptcha")
 captcha_location = cap_img.location
@@ -55,9 +48,24 @@ captcha_tb.send_keys(captcha_data)
 submit_btn = browser.find_element_by_class_name("submit3")
 submit_btn.click()
 
-time.sleep(5)
-login_url = browser.current_url
-assert "FFCS" in browser.title
-
 browser.get('https://vtop.vit.ac.in/student/course_regular.asp?sem=WS')
-print(browser.page_source)
+course_data = browser.page_source
+soup_data = BeautifulSoup(course_data,"html.parser")
+
+table_elements = soup_data.select('form table tbody tr td')
+all_elements = []
+
+for element in table_elements:
+	try:
+		soup_data = BeautifulSoup(str(element),"html.parser")
+		temp = []
+		for line in soup_data:
+			temp.append(line.font.string.strip())
+	except:
+		i = 0
+
+	all_elements.append(temp)
+
+for line in all_elements:
+	print(line)
+
