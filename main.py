@@ -8,7 +8,7 @@ import getpass
 import re
 
 main_url = 'https://vtop.vit.ac.in/student/stud_login.asp'
-reg_no = input('Enter your registration number: ')
+reg_no = raw_input('Enter your registration number: ')
 password = getpass.getpass('Enter your password:')
 
 browser = webdriver.PhantomJS()
