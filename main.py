@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
-import urllib.request as ur
+#import urllib.request as ur
 from bs4 import BeautifulSoup
 from PIL import Image, ImageTk
 import tkinter 
@@ -11,7 +11,7 @@ main_url = 'https://vtop.vit.ac.in/student/stud_login.asp'
 reg_no = raw_input('Enter your registration number: ')
 password = getpass.getpass('Enter your password:')
 
-browser = webdriver.PhantomJS()
+browser = webdriver.Chrome()
 browser.get(main_url)
 assert "FFCS" in browser.title
 
